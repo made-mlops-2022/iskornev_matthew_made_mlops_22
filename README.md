@@ -1,2 +1,2 @@
 # iskornev_matthew_made_mlops_22
-## ml_example
+## Домашние задания для курса MLOps в MADE, осень 2022.
