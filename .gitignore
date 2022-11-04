@@ -1,0 +1,17 @@
+ml_project/data/raw
+ml_project/data/processed
+build/
+outputs/
+ml_project/src/features/check_smth.py
+ml_project/src/outputs/
+ml_project/build/
+ml_project/ml_base_1.egg-info/
+ml_project/src.egg-info/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+.idea
+/.idea
+ml_project/mlruns
+:memory

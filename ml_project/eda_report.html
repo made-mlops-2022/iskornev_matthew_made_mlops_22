@@ -1,0 +1,441 @@
+
+<html>
+    <head>
+        <title>My report</title>
+    </head>
+    <body>
+            <h1>EDA of dataset from kaggle</h1>
+            <p>Hello, welcome to my report!</p>
+            <h2>First 5 rows of our data</h2>
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>sex</th>
+      <th>cp</th>
+      <th>trestbps</th>
+      <th>chol</th>
+      <th>fbs</th>
+      <th>restecg</th>
+      <th>thalach</th>
+      <th>exang</th>
+      <th>oldpeak</th>
+      <th>slope</th>
+      <th>ca</th>
+      <th>thal</th>
+      <th>condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>69</td>
+      <td>1</td>
+      <td>0</td>
+      <td>160</td>
+      <td>234</td>
+      <td>1</td>
+      <td>2</td>
+      <td>131</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>69</td>
+      <td>0</td>
+      <td>0</td>
+      <td>140</td>
+      <td>239</td>
+      <td>0</td>
+      <td>0</td>
+      <td>151</td>
+      <td>0</td>
+      <td>1.8</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>66</td>
+      <td>0</td>
+      <td>0</td>
+      <td>150</td>
+      <td>226</td>
+      <td>0</td>
+      <td>0</td>
+      <td>114</td>
+      <td>0</td>
+      <td>2.6</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>65</td>
+      <td>1</td>
+      <td>0</td>
+      <td>138</td>
+      <td>282</td>
+      <td>1</td>
+      <td>2</td>
+      <td>174</td>
+      <td>0</td>
+      <td>1.4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>64</td>
+      <td>1</td>
+      <td>0</td>
+      <td>110</td>
+      <td>211</td>
+      <td>0</td>
+      <td>2</td>
+      <td>144</td>
+      <td>1</td>
+      <td>1.8</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+            <h2>all info about dataset</h2>
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DF INFO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>&lt;class 'pandas.core.frame.DataFrame'&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>RangeIndex: 297 entries, 0 to 296</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Data columns (total 14 columns):</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>#   Column     Non-Null Count  Dtype</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>---  ------     --------------  -----</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0   age        297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1   sex        297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2   cp         297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>3   trestbps   297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>4   chol       297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>5   fbs        297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>6   restecg    297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>7   thalach    297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>8   exang      297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>9   oldpeak    297 non-null    float64</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>10  slope      297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>11  ca         297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>12  thal       297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>13  condition  297 non-null    int64</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>dtypes: float64(1), int64(13)</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>memory usage: 32.6 KB</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+            <p>We see that the dataset is small (297 observations). There are no gaps in the data. The number of features is also small - 13.</p>
+            <h2>Statistics</h2>
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>sex</th>
+      <th>cp</th>
+      <th>trestbps</th>
+      <th>chol</th>
+      <th>fbs</th>
+      <th>restecg</th>
+      <th>thalach</th>
+      <th>exang</th>
+      <th>oldpeak</th>
+      <th>slope</th>
+      <th>ca</th>
+      <th>thal</th>
+      <th>condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+      <td>297.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>54.542088</td>
+      <td>0.676768</td>
+      <td>2.158249</td>
+      <td>131.693603</td>
+      <td>247.350168</td>
+      <td>0.144781</td>
+      <td>0.996633</td>
+      <td>149.599327</td>
+      <td>0.326599</td>
+      <td>1.055556</td>
+      <td>0.602694</td>
+      <td>0.676768</td>
+      <td>0.835017</td>
+      <td>0.461279</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>9.049736</td>
+      <td>0.468500</td>
+      <td>0.964859</td>
+      <td>17.762806</td>
+      <td>51.997583</td>
+      <td>0.352474</td>
+      <td>0.994914</td>
+      <td>22.941562</td>
+      <td>0.469761</td>
+      <td>1.166123</td>
+      <td>0.618187</td>
+      <td>0.938965</td>
+      <td>0.956690</td>
+      <td>0.499340</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>29.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>94.000000</td>
+      <td>126.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>71.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>48.000000</td>
+      <td>0.000000</td>
+      <td>2.000000</td>
+      <td>120.000000</td>
+      <td>211.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>133.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>56.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>130.000000</td>
+      <td>243.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>153.000000</td>
+      <td>0.000000</td>
+      <td>0.800000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>61.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>140.000000</td>
+      <td>276.000000</td>
+      <td>0.000000</td>
+      <td>2.000000</td>
+      <td>166.000000</td>
+      <td>1.000000</td>
+      <td>1.600000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>77.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>200.000000</td>
+      <td>564.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>202.000000</td>
+      <td>1.000000</td>
+      <td>6.200000</td>
+      <td>2.000000</td>
+      <td>3.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+            <p>It is worth noting that the data mainly cover people aged: 75% of the observedare older than 48 years. As for gender, it is shifted towards men. You can also notice that the target is distributed fairly balanced, about half of the people are actually sick.</p>
+            <h2>There are no duplicate observations in our dataset.</h2>
+            <p>df.duplicated().sum()</p>
+            0
+            <br>
+            <h2>Let's plot graphics</h2>
+            <img src="reports/pictures/count_plot_sex.png" style=”width:auto;”>
+            <br>
+            <img src="reports/pictures/count_plot_sex_cond.png" style=”width:auto;”>
+            <h2>Among women, the disease is less common than among men</h2>
+            <img src="reports/pictures/man_woman_comp.png" style=”width:auto;”>
+            <br>
+            <img src="reports/pictures/cp_comp.png" style=”width:auto;”>
+            <h2>Let's look at the histograms for all numeric features</h2>
+            <img src="reports/pictures/hists.png" style=”width:auto;”>
+            <h2>Correlation matrix</h2>
+            <img src="reports/pictures/corr.png" style=”width:auto;”>
+            <h2>The strongest correlation is observed in the slope and old peak variables</h2>
+            <img src="reports/pictures/high_corr.png" style=”width:auto;”>
+            <h2>Let's see which variables are most correlated with the target</h2>
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>thal</th>
+      <td>0.520516</td>
+    </tr>
+    <tr>
+      <th>ca</th>
+      <td>0.463189</td>
+    </tr>
+    <tr>
+      <th>oldpeak</th>
+      <td>0.424052</td>
+    </tr>
+    <tr>
+      <th>exang</th>
+      <td>0.421355</td>
+    </tr>
+    <tr>
+      <th>cp</th>
+      <td>0.408945</td>
+    </tr>
+    <tr>
+      <th>slope</th>
+      <td>0.333049</td>
+    </tr>
+    <tr>
+      <th>thalach</th>
+      <td>-0.423817</td>
+    </tr>
+  </tbody>
+</table>
+            <br>
+            <img src="reports/pictures/hist_cat_feat.png" style=”width:auto;”>
+            <br>
+            <img src="reports/pictures/boxplot.png" style=”width:auto;”>
+    </body>
+</html>

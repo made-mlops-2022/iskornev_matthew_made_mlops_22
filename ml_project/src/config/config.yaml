@@ -1,0 +1,29 @@
+_target_: entities.TrainPipelineCfg
+
+defaults:
+  - _self_
+  - model: knn
+  - override hydra/job_logging: custom
+
+splitting_params:
+  _target_: entities.SplittingParams
+  test_size: 0.3
+  random_state: 42
+
+features:
+  _target_: entities.FeatureList
+  categorical:
+    - 'sex'
+    - 'cp'
+    - 'fbs'
+    - 'restecg'
+    - 'exang'
+    - 'slope'
+    - 'ca'
+    - 'thal'
+  numerical:
+    - 'age'
+    - 'trestbps'
+    - 'chol'
+    - 'thalach'
+    - 'oldpeak'

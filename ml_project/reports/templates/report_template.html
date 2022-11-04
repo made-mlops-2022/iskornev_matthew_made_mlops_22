@@ -1,0 +1,42 @@
+
+<html>
+    <head>
+        <title>{{page_title_text}}</title>
+    </head>
+    <body>
+            <h1>{{title_text}}</h1>
+            <p>{{text}}</p>
+            <h2>{{beg_test}}</h2>
+            {{df.head().to_html()}}
+            <h2>{{info_text}}</h2>
+            {{df_info.to_html()}}
+            <p>{{info_text_conc}}</p>
+            <h2>{{des_text}}</h2>
+            {{df_describe.to_html()}}
+            <p>{{des_text_conc}}</p>
+            <h2>{{text_dup}}</h2>
+            <p>{{text_dup_conc}}</p>
+            {{dup}}
+            <br>
+            <h2>{{text_graph}}</h2>
+            <img src="reports/pictures/count_plot_sex.png" style=”width:auto;”>
+            <br>
+            <img src="reports/pictures/count_plot_sex_cond.png" style=”width:auto;”>
+            <h2>{{text_ill}}</h2>
+            <img src="reports/pictures/man_woman_comp.png" style=”width:auto;”>
+            <br>
+            <img src="reports/pictures/cp_comp.png" style=”width:auto;”>
+            <h2>{{text_hist}}</h2>
+            <img src="reports/pictures/hists.png" style=”width:auto;”>
+            <h2>{{text_corr}}</h2>
+            <img src="reports/pictures/corr.png" style=”width:auto;”>
+            <h2>{{text_high_corr}}</h2>
+            <img src="reports/pictures/high_corr.png" style=”width:auto;”>
+            <h2>{{text_most_corr}}</h2>
+            {{most_corr_features.to_html()}}
+            <br>
+            <img src="reports/pictures/hist_cat_feat.png" style=”width:auto;”>
+            <br>
+            <img src="reports/pictures/boxplot.png" style=”width:auto;”>
+    </body>
+</html>
