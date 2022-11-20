@@ -19,7 +19,7 @@ pip install .
 2. Go to `ml_project/` by typing `cd ..` two times in console.
 3. To load data run:
     ~~~
-    data_load
+    python src/data/data_load.py
     ~~~
 4. The data loads to `ml_project/data/raw/heart_cleveland_upload.csv`.
 

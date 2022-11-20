@@ -1,11 +1,10 @@
 import pandas as pd
 from io import StringIO
 import numpy as np
-from src.data import PATH_TO_DATA
 from jinja2 import Environment, FileSystemLoader
 
 
-df = pd.read_csv(PATH_TO_DATA.joinpath('raw/heart_cleveland_upload.csv'))
+df = pd.read_csv('data/raw/heart_cleveland_upload.csv')
 
 df_describe = df.describe()
 

@@ -3,6 +3,8 @@ _target_: entities.TrainPipelineCfg
 defaults:
   - _self_
   - model: knn
+  - knn_grid: knn_grid
+  - rfc_grid: rfc_grid
   - override hydra/job_logging: custom
 
 splitting_params:
@@ -27,3 +29,11 @@ features:
     - 'chol'
     - 'thalach'
     - 'oldpeak'
+  target: 'condition'
+
+paths:
+  _target_: entities.PathList
+  path_to_raw_data: 'data/raw/heart_cleveland_upload.csv'
+  path_to_processed_data: 'data/processed/heart_cleveland_upload.csv'
+  path_to_model: 'data/model/model.pkl'
+  path_to_transformer: 'data/transformer/trans.pkl'

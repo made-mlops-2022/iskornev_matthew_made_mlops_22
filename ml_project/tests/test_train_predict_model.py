@@ -4,7 +4,7 @@ import numpy as np
 import unittest
 from sklearn.model_selection import train_test_split
 from src.features import MyTransformer
-from src.entities.train_params import SplittingParams, FeatureList, ModelParams, TrainPipelineCfg
+from src.entities.train_params import SplittingParams, FeatureList, ModelParams, TrainPipelineCfg, KnnGridParams, RfcGridParams, PathList
 from src.models import train_model
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import f1_score
@@ -27,26 +27,38 @@ class TestModel(unittest.TestCase):
         self.numerical = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
         self.feat_param = FeatureList(
             categorical=self.categorical,
-            numerical=self.numerical
+            numerical=self.numerical,
+            target=self.target
         )
-        trans_train = MyTransformer(
-            self.X_train,
+        trans = MyTransformer(
             self.categorical,
             self.numerical
         )
-        trans_train.fit()
-        self.X_train_processed = trans_train.transform()
-        trans_test = MyTransformer(
-            self.X_test,
-            self.categorical,
-            self.numerical
+        trans.fit(self.X_train)
+        self.X_train_processed = trans.transform(self.X_train)
+        self.kgp = KnnGridParams(
+            n_neighbors=[2, 3, 4],
+            metric=['euclidean']
         )
-        trans_test.fit()
-        self.X_test_processed = trans_test.transform()
+        self.rgp = RfcGridParams(
+            n_estimators=[100, 150],
+            max_depth=[2, 3, 7],
+            max_features=['sqrt']
+        )
+        self.pl = PathList(
+            path_to_raw_data='data/raw/heart_cleveland_upload.csv',
+            path_to_processed_data='data/processed/heart_cleveland_upload.csv',
+            path_to_model='data/model/model.pkl',
+            path_to_transformer='data/transformer/trans.pkl'
+        )
+        self.X_test_processed = trans.transform(self.X_test)
         tpc = TrainPipelineCfg(
             model=ModelParams(),
             splitting_params=self.split_param,
-            features=self.feat_param
+            features=self.feat_param,
+            knn_grid=self.kgp,
+            rfc_grid=self.rgp,
+            paths=self.pl
         )
         self.metrics, self.model = train_model(self.X_train_processed, self.X_train, self.y_train, tpc)
 
@@ -87,7 +99,10 @@ class TestModel(unittest.TestCase):
         tpc = TrainPipelineCfg(
             model=custom_model_param,
             splitting_params=self.split_param,
-            features=self.feat_param
+            features=self.feat_param,
+            knn_grid=self.kgp,
+            rfc_grid=self.rgp,
+            paths=self.pl
         )
         metrics, model_gs = train_model(self.X_train_processed, self.X_train, self.y_train, tpc)
         y_predict_train = model_gs.predict(self.X_train_processed)

@@ -1,0 +1,12 @@
+_target_: entities.KnnGridParams
+n_neighbors:
+  - 2
+  - 3
+  - 4
+  - 5
+  - 7
+  - 9
+  - 10
+metric:
+  - 'minkowski'
+  - 'euclidean'

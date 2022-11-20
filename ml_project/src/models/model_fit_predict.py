@@ -8,12 +8,13 @@ from sklearn.metrics import f1_score, accuracy_score, roc_auc_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+import os
+
 from src.features import MyTransformer
 from src.entities import TrainPipelineCfg
-import os
+
+
 os.environ["MLFLOW_TRACKING_URI"] = "http://127.0.0.1:5000"
-
-
 logger = logging.getLogger("train_model")
 
 
@@ -23,15 +24,15 @@ def train_model(
     with mlflow.start_run():
         if param.model.name == 'knn':
             model = KNeighborsClassifier(n_neighbors=param.model.num_n)
-            param_grid = {'n_neighbors': [3, 4, 5, 7, 9, 10],
-                          'metric': ['minkowski', 'euclidean']}
+            param_grid = {'n_neighbors': param.knn_grid.n_neighbors,
+                          'metric': param.knn_grid.metric}
         else:
             model = RandomForestClassifier(n_estimators=param.model.n_estimators,
                                            max_depth=param.model.max_depth,
                                            random_state=param.model.random_state)
-            param_grid = {'n_estimators': [50, 80, 100, 130, 150, 200],
-                          'max_depth': [2, 3, 4, 5, 6, 7],
-                          'max_features': ['sqrt', 'log2']}
+            param_grid = {'n_estimators': param.rfc_grid.n_estimators,
+                          'max_depth': param.rfc_grid.max_depth,
+                          'max_features': param.rfc_grid.max_features}
         if param.model.grid_search:
             logger.info("Use grid_search = True")
             logger.info(f"grid parameters = {param_grid}")
@@ -47,20 +48,13 @@ def train_model(
             df_train = X_train.iloc[train_index]
             df_val = X_train.iloc[val_index]
             trans = MyTransformer(
-                df_train,
                 param.features.categorical,
                 param.features.numerical
             )
-            trans.fit()
-            df_train_processed = trans.transform()
+            trans.fit(df_train)
+            df_train_processed = trans.transform(df_train)
             df_train_processed.set_index([pd.Index(train_index)], inplace=True)
-            trans = MyTransformer(
-                df_val,
-                param.features.categorical,
-                param.features.numerical
-            )
-            trans.fit()
-            df_val_processed = trans.transform()
+            df_val_processed = trans.transform(df_val)
             df_val_processed.set_index([pd.Index(val_index)], inplace=True)
             X_for_val = pd.concat([df_train_processed, df_val_processed])
             X_for_val.sort_index(inplace=True)

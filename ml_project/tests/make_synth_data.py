@@ -2,14 +2,12 @@ from DataSynthesizer.DataDescriber import DataDescriber
 from DataSynthesizer.DataGenerator import DataGenerator
 from DataSynthesizer.ModelInspector import ModelInspector
 from DataSynthesizer.lib.utils import read_json_file, display_bayesian_network
-from src.data import PATH_TO_DATA
-from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
 def main():
-    input_data = Path(PATH_TO_DATA).joinpath('raw/heart_cleveland_upload.csv')
+    input_data = ('data/raw/heart_cleveland_upload.csv')
     # mode = 'correlated_attribute_mode'
     description_file = 'tests/synth_data/description.json'
     synthetic_data = 'tests/synth_data/synthetic_data.csv'
@@ -35,7 +33,7 @@ def main():
     generator.save_synthetic_data(synthetic_data)
 
     synthetic_df = pd.read_csv(synthetic_data)
-    df = pd.read_csv(PATH_TO_DATA.joinpath('raw/heart_cleveland_upload.csv'))
+    df = pd.read_csv('data/raw/heart_cleveland_upload.csv')
 
     attribute_description = read_json_file(description_file)['attribute_description']
     inspector = ModelInspector(df, synthetic_df, attribute_description)

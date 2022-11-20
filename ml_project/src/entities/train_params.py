@@ -12,6 +12,7 @@ class SplittingParams:
 class FeatureList:
     categorical: List[str]
     numerical: List[str]
+    target: str
 
 
 @dataclass()
@@ -26,8 +27,32 @@ class ModelParams:
     grid_search: bool = field(default=False)
 
 
+@dataclass()
+class KnnGridParams:
+    n_neighbors: List[int]
+    metric: List[str]
+
+
+@dataclass()
+class RfcGridParams:
+    n_estimators: List[int]
+    max_depth: List[int]
+    max_features: List[str]
+
+
+@dataclass()
+class PathList:
+    path_to_raw_data: str
+    path_to_processed_data: str
+    path_to_model: str
+    path_to_transformer: str
+
+
 @dataclass
 class TrainPipelineCfg:
     model: ModelParams
     splitting_params: SplittingParams
     features: FeatureList
+    knn_grid: KnnGridParams
+    rfc_grid: RfcGridParams
+    paths: PathList

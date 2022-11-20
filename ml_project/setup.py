@@ -13,7 +13,7 @@ setup(
     author="Matthew Iskornev",
     entry_points={
         "console_scripts": [
-            "data_load = src.data.data_load:main",
+           # "data_load = src.data.data_load:main",
             "make_synth_data = tests.make_synth_data:main"
         ]
     },

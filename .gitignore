@@ -1,5 +1,5 @@
-ml_project/data/raw
-ml_project/data/processed
+ml_project/data/raw/*.csv
+ml_project/data/processed/*.csv
 build/
 outputs/
 ml_project/src/features/check_smth.py
@@ -15,3 +15,11 @@ eggs/
 /.idea
 ml_project/mlruns
 :memory
+ml_project/src/__pycache__
+ml_project/src/data/__pycache__
+ml_project/src/entities/__pycache__
+ml_project/src/features/__pycache__
+ml_project/src/models/__pycache__
+ml_project/tests/__pycache__
+ml_project/notebooks/.ipynb_checkpoints
+
