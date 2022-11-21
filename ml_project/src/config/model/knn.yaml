@@ -1,0 +1,5 @@
+_target_: entities.ModelParams
+name: knn
+num_n: 3
+metric: minkowski
+grid_search: False

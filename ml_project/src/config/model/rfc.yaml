@@ -1,0 +1,7 @@
+_target_: entities.ModelParams
+name: rfc
+n_estimators: 150
+max_depth: 5
+max_features: log2
+random_state: 42
+grid_search: False
