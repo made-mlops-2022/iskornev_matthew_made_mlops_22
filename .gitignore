@@ -22,4 +22,16 @@ ml_project/src/features/__pycache__
 ml_project/src/models/__pycache__
 ml_project/tests/__pycache__
 ml_project/notebooks/.ipynb_checkpoints
-
+online_inference/.pytest_cache
+online_inference/build
+online_inference/data/*.csv
+online_inference/data/model/*.pkl
+online_inference/data/transformer/*.pkl
+online_inference/data/transformer/*.csv
+online_inference/data/transformer/*.py
+online_inference/microservice.egg-info
+online_inference/tests/.pytest_cache
+online_inference/data/transformer/heart_cleveland_upload.csv
+online_inference/data/transformer/get_transformer.py
+online_inference/tests/__pycache__
+online_inference/microservice/__pycache__
