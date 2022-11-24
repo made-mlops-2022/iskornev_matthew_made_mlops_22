@@ -1,10 +1,10 @@
-from fastapi import FastAPI
-from fastapi_health import health
-from sklearn.pipeline import Pipeline
 import os
 import pickle
 import uvicorn
 import logging
+from fastapi import FastAPI
+from fastapi_health import health
+from sklearn.pipeline import Pipeline
 
 from microservice.functions import get_model_response
 from microservice.entities import InputClass, OutputClass
@@ -29,29 +29,19 @@ transformer = None
 
 @app.get("/")
 def main() -> str:
-    return "it is entry point of our service. Please add '/docs' to run prediction"
+    entry_point = "it is entry point of our service. " \
+                  "Add '/info' to get information about model. " \
+                  "Add '/health' to check if the model is ready. " \
+                  "Add '/docs' to run prediction."
+    return entry_point
 
 
 @app.get('/info')
 async def model_info() -> dict:
-    """Return model information, version, how to call"""
     return {
         "name": model_name,
         "version": version
     }
-
-
-# class RenameUnpickler(pickle.Unpickler):
-#     def find_class(self, module, name):
-#         renamed_module = module
-#         if module == "src":
-#             renamed_module = "microservice"
-#
-#         return super(RenameUnpickler, self).find_class(renamed_module, name)
-#
-#
-# def renamed_load(file_obj):
-#     return RenameUnpickler(file_obj).load()
 
 
 def load_object(path: str) -> Pipeline:
@@ -104,7 +94,6 @@ app.add_api_route("/health", health([is_model_ready],
 
 @app.post('/predict', response_model=OutputClass)
 async def model_predict(input: InputClass) -> dict:
-    """Predict with input"""
     response = get_model_response(input, model, transformer)
     return response
 

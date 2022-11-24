@@ -2,12 +2,15 @@ import json
 import logging
 import os
 import pandas as pd
+from time import sleep
 import requests
+
 from microservice.entities import FLOAT_FEATURES
 
 
+os.environ.setdefault('URL_HEALTH', 'http://127.0.0.1:8000/health')
 os.environ.setdefault('PATH_TO_DATA', './data/synthetic_data.csv')
-os.environ.setdefault('URL', 'http://127.0.0.1:8000/predict')
+os.environ.setdefault('URL_PREDICT', 'http://127.0.0.1:8000/predict')
 TARGET = 'condition'
 
 logger = logging.getLogger("logging_requests")
@@ -23,6 +26,12 @@ logger.addHandler(stream_handler)
 def main():
     df = pd.read_csv(os.getenv('PATH_TO_DATA'))
     df.drop(columns=TARGET, inplace=True)
+    while True:
+        if requests.get(os.getenv('URL_HEALTH')).status_code != 200:
+            logger.info("Model has not loaded yet, please wait")
+            sleep(1)
+        else:
+            break
     for row in df.iterrows():
 
         row_int = row[1].astype(int)
@@ -32,7 +41,7 @@ def main():
             row_json[name] = row[1][name]
 
         response = requests.post(
-            os.getenv('URL'),
+            os.getenv('URL_PREDICT'),
             json.dumps(row_json)
         )
         logger.info(f"status code: {response.status_code}")
