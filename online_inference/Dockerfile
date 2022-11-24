@@ -1,16 +1,13 @@
 FROM python:3.9-slim
 
-COPY requirements.txt ./service/requirements.txt
+COPY requirements.txt setup.py ./service/
 COPY ./microservice ./service/microservice
-COPY setup.py ./service/
-COPY ./data/model/model.pkl ./service/microservice/model.pkl
-COPY ./data/transformer/trans.pkl ./service/microservice/trans.pkl
+COPY ./data/model/model.pkl ./data/transformer/trans.pkl ./service/microservice/
 
 WORKDIR service
 
-RUN  python3 -m pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
-
-RUN pip install .
+RUN  python3 -m pip install --upgrade pip \
+     && pip install --no-cache-dir -r requirements.txt .
 
 ENV PATH_TO_MODEL='microservice/model.pkl'
 ENV PATH_TO_TRANSFORMER='microservice/trans.pkl'
@@ -18,6 +15,7 @@ ENV PATH_TO_TRANSFORMER='microservice/trans.pkl'
 EXPOSE 8000
 
 CMD ["uvicorn", "microservice.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
+
 
 # адрес сервиса http://127.0.0.1:8000 или http://localhost:8000
 

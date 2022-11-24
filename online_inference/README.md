@@ -51,3 +51,25 @@ python -m pytest tests
 
 
 ## *Additional part*
+
+### ***Size optimization of Docker image***
+1. `.dockerignore` __file__. <br />
+    Used to exclude useless files and dirs such us .pytest_cache, build, etc.
+2. __Ordering__ __layers__ from the less frequently changed (to ensure the build cache is reusable)
+   to the more frequently changed. <br />
+    For example, last layers deal with paths to model and transformer, used port and 
+    commands to run within the container. It is assumed that these items change most often
+3. __Ignoring unnecessary packages__. <br />
+    File `requirements.txt` contains only necessary packages. It contains 25 lines less compared 
+    to the same file in the last homework.
+4. __Minimizing the number of layers__. <br />
+    I tried to union instructions like `COPY` and `RUN`. For example <br />`COPY requirements.txt ./service/requirements.txt`
+    and `COPY setup.py ./service/` <br /> can be combined into <br />
+    `COPY requirements.txt setup.py ./service/`.
+    To union `RUN` instructions I used "&&".
+5. __Using lighter basic images__. <br />
+    For example, `python:3.9-slim` instead of `python:3.9`
+
+Using all the steps, size of image decreased from __1.25__ GB to __503.42__ MB. <br />
+However the main contribution is made by step 5.
+    

@@ -172,23 +172,3 @@ class OutputClass(BaseModel):
     label: str
     prediction: int
     probability: float
-
-# try:
-#     InputClass(
-#         condition='scolvin',
-#         age=10,
-#         sex=0,
-#         cp=0,
-#         trestbps=120,
-#         fbs=0,
-#         restecg=1,
-#         thalach=0,
-#         exang=0,
-#         oldpeak=1,
-#         slope=0,
-#         ca=1,
-#         thal=0,
-#         chol=0
-#     )
-# except ValidationError as e:
-#     print(e)

@@ -184,6 +184,3 @@ def test_no_target():
     true_response = 'target should not be included'
     assert response.status_code == 400
     assert response.json()['detail'] == true_response
-
-
-# для запуска тестов - python -m pytest tests
