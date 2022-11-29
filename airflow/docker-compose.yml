@@ -11,6 +11,7 @@ x-environment: &airflow_environment
   - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY}
   - AIRFLOW_VAR_DATA_PATH=${DATA_PATH}
   - AIRFLOW_VAR_CURRENT_MODEL_DATE=${CURRENT_MODEL_DATE}
+  - AIRFLOW_VAR_MLFLOW_RUNS_PATH=${MLFLOW_RUNS_PATH}
 
 
 x-airflow-image: &airflow_image apache/airflow:2.3.0-python3.8
@@ -94,30 +95,34 @@ services:
       context: images/airflow-train
     image: airflow-train
     restart: "no"
+    network_mode: "host"
 
   validation:
     build:
       context: images/airflow-validation
     image: airflow-validation
     restart: "no"
+    network_mode: "host"
 
-  predcit:
+  predict:
     build:
       context: images/airflow-predict
     image: airflow-predict
     restart: "no"
+    network_mode: "host"
+
+  mlflow:
+    build:
+      context: images/mlflow
+    image: mlflow
+    volumes:
+      - ./mlflow_runs/:/mlflow/mlflow_runs/
+    ports:
+      - "5050:5050"
+    restart: always
 
 volumes:
   logs:
 
 
-# ПЕРЕД ЗАПУСКОМ ДОКЕР КОМПОУЗ
-
-# export DATA_PATH=$(pwd)/data
-
-# export CURRENT_MODEL_DATE=$(2022-11-28)
-# export CURRENT_MODEL_DATE="2022-11-28"
-
-# export FERNET_KEY=$(python3 -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")
-
-# docker-compose up --build
+# to run docker-compose - ./run.sh

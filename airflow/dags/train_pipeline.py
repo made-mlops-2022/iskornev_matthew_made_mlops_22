@@ -9,6 +9,7 @@ from docker.types import Mount
 
 
 DATA_PATH = Variable.get("DATA_PATH")
+MLFLOW_RUNS_PATH = Variable.get("MLFLOW_RUNS_PATH")
 
 
 default_args = {
@@ -21,8 +22,8 @@ default_args = {
 with DAG(
         "train_pipeline",
         default_args=default_args,
-        schedule_interval="@weekly",
-        start_date=datetime(2022, 11, 28),
+        schedule_interval="@daily",
+        start_date=datetime(2022, 11, 27),
 ) as dag:
     split_data = DockerOperator(
         image="airflow-data-split",
@@ -50,22 +51,24 @@ with DAG(
         image="airflow-train",
         command="--input_dir /data/splitted/processed/train/{{ ds }} "
                 "--output_dir /data/validation_artefacts/{{ ds }}",
-        network_mode="bridge",
+        network_mode="host",
         task_id="docker-airflow-train-data",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        mounts=[Mount(source=DATA_PATH, target="/data", type='bind')]
+        mounts=[Mount(source=DATA_PATH, target="/data", type='bind'),
+                Mount(source=MLFLOW_RUNS_PATH, target="/mlflow_runs", type='bind')]
     )
 
     validation = DockerOperator(
         image="airflow-validation",
         command="--input_dir /data/splitted/raw/val/{{ ds }} "
                 "--model_dir /data/validation_artefacts/{{ ds }}",
-        network_mode="bridge",
+        network_mode="host",
         task_id="docker-airflow-validation",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        mounts=[Mount(source=DATA_PATH, target="/data", type='bind')]
+        mounts=[Mount(source=DATA_PATH, target="/data", type='bind'),
+                Mount(source=MLFLOW_RUNS_PATH, target="/mlflow_runs", type='bind')]
     )
 
     split_data >> preprocess_data >> train >> validation

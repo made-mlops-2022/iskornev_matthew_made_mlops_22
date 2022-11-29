@@ -22,7 +22,7 @@ with DAG(
         "get_data",
         default_args=default_args,
         schedule_interval="@daily",
-        start_date=datetime(2022, 11, 28),
+        start_date=datetime(2022, 11, 27),
 ) as dag:
     get_data = DockerOperator(
         image="airflow-get-data",
