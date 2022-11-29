@@ -61,3 +61,5 @@ airflow/images/airflow-predict/__pycache__/
 
 airflow/mlflow_runs/*
 airflow/images/mlflow/mlflow_runs
+
+airflow/tests/__pycache__/

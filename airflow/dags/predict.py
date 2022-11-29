@@ -7,7 +7,6 @@ from airflow.utils.dates import days_ago
 from docker.types import Mount
 
 
-CURRENT_MODEL_DATE = Variable.get("CURRENT_MODEL_DATE")
 DATA_PATH = Variable.get("DATA_PATH")
 MLFLOW_RUNS_PATH = Variable.get("MLFLOW_RUNS_PATH")
 
@@ -28,8 +27,7 @@ with DAG(
 
     predict = DockerOperator(
         image="airflow-predict",
-        command="--input_dir /data/raw/{{ ds }} --output_dir /data/predictions/{{ ds }} "
-                f"--model_dir /data/validation_artefacts/{CURRENT_MODEL_DATE}",
+        command="--input_dir /data/raw/{{ ds }} --output_dir /data/predictions/{{ ds }}",
         network_mode="host",
         task_id="docker-airflow-predict",
         do_xcom_push=False,

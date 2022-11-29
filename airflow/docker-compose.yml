@@ -10,7 +10,6 @@ x-environment: &airflow_environment
   - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
   - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY}
   - AIRFLOW_VAR_DATA_PATH=${DATA_PATH}
-  - AIRFLOW_VAR_CURRENT_MODEL_DATE=${CURRENT_MODEL_DATE}
   - AIRFLOW_VAR_MLFLOW_RUNS_PATH=${MLFLOW_RUNS_PATH}
 
 
@@ -68,6 +67,7 @@ services:
       - logs:/opt/airflow/logs
       - ./dags/:/opt/airflow/dags/
       - ./data/:/opt/airflow/data/
+      - ./tests/:/opt/airflow/tests/
       - /var/run/docker.sock:/var/run/docker.sock
     environment: *airflow_environment
     command: scheduler

@@ -18,11 +18,7 @@ TRANSFORMER_PATH = 'mlflow_runs/0/'
               default='data/predictions/',
               help='Please enter path to output dur. Default path - '
                    '../../data/predictions/')
-@click.option("--model_dir",
-              default='data/validation_artefacts/2022-11-28/',
-              help='Please enter path to current model and transformer. Default path - '
-                   '../../data/validation_artefacts/2022-11-28/')
-def predict(input_dir: str, output_dir: str, model_dir: str) -> None:
+def predict(input_dir: str, output_dir: str) -> None:
     os.makedirs(output_dir, exist_ok=True)
     data = pd.read_csv(Path(input_dir).joinpath('data.csv'))
 
