@@ -101,6 +101,12 @@ services:
     image: airflow-validation
     restart: "no"
 
+  predcit:
+    build:
+      context: images/airflow-predict
+    image: airflow-predict
+    restart: "no"
+
 volumes:
   logs:
 
@@ -109,7 +115,8 @@ volumes:
 
 # export DATA_PATH=$(pwd)/data
 
-# export CURRENT_MODEL_DATE=$(pwd)/
+# export CURRENT_MODEL_DATE=$(2022-11-28)
+# export CURRENT_MODEL_DATE="2022-11-28"
 
 # export FERNET_KEY=$(python3 -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")
 

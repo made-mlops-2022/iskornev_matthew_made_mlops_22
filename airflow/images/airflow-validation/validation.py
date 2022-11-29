@@ -8,6 +8,7 @@ import numpy as np
 
 
 MODEL_NAME = 'model_rfc.pkl'
+TRANSFORMER_NAME = 'trans.pkl'
 
 
 @click.command("validation")
@@ -23,7 +24,7 @@ def validation(input_dir: str, model_dir: str) -> None:
     target = pd.read_csv(Path(input_dir).joinpath('target.csv'))
     target = np.array(target).reshape(len(data))
 
-    with open(Path(model_dir).joinpath('trans.pkl'), 'rb') as f:
+    with open(Path(model_dir).joinpath(TRANSFORMER_NAME), 'rb') as f:
         trans = pickle.load(f)
 
     data = trans.transform(data)

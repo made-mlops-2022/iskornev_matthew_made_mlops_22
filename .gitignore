@@ -37,6 +37,7 @@ online_inference/tests/__pycache__
 online_inference/microservice/__pycache__
 airflow/dags/__pycache__/
 airflow/data/raw/2022-11-28/*.csv
+airflow/data/raw/2022-11-29/*.csv
 airflow/data/splitted/processed/train/2022-11-28/*.csv
 airflow/data/splitted/raw/train/2022-11-28/*.csv
 airflow/data/splitted/raw/val/2022-11-28/*.csv
