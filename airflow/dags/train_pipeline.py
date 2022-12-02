@@ -1,34 +1,22 @@
-import os
-from datetime import timedelta
-from datetime import datetime
 from airflow import DAG
-from airflow.models import Variable
 from airflow.providers.docker.operators.docker import DockerOperator
-from airflow.utils.dates import days_ago
 from docker.types import Mount
 
+from params_and_paths import DATA_PATH, MLFLOW_RUNS_PATH, START_DATE,\
+    DEF_ARGS, VAL_ARTEFACTS, TRAIN_SIZE, MODEL_PARAMS
 
-DATA_PATH = Variable.get("DATA_PATH")
-MLFLOW_RUNS_PATH = Variable.get("MLFLOW_RUNS_PATH")
-
-
-default_args = {
-    "owner": "matthewiskornev",
-    "email": ["matveiiskornev@mail.ru"],
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5),
-}
 
 with DAG(
         "train_pipeline",
-        default_args=default_args,
-        schedule_interval="@daily",
-        start_date=datetime(2022, 11, 27),
+        default_args=DEF_ARGS,
+        schedule_interval="@weekly",
+        start_date=START_DATE,
 ) as dag:
     split_data = DockerOperator(
         image="airflow-data-split",
         command="--input_dir /data/raw/{{ ds }} --output_train_dir /data/splitted/raw/train/{{ ds }} "
-                "--output_val_dir /data/splitted/raw/val/{{ ds }}",
+                "--output_val_dir /data/splitted/raw/val/{{ ds }} "
+                f"--train_size {TRAIN_SIZE}",
         network_mode="bridge",
         task_id="docker-airflow-split-data",
         do_xcom_push=False,
@@ -39,7 +27,7 @@ with DAG(
     preprocess_data = DockerOperator(
         image="airflow-preprocess",
         command="--input_dir /data/splitted/raw/train/{{ ds }} --output_dir /data/splitted/processed/train/{{ ds }} "
-                "--val_dir /data/validation_artefacts/{{ ds }}",
+                f"--val_dir {VAL_ARTEFACTS}",
         network_mode="bridge",
         task_id="docker-airflow-process-data",
         do_xcom_push=False,
@@ -50,7 +38,10 @@ with DAG(
     train = DockerOperator(
         image="airflow-train",
         command="--input_dir /data/splitted/processed/train/{{ ds }} "
-                "--output_dir /data/validation_artefacts/{{ ds }}",
+                f"--output_dir {VAL_ARTEFACTS} "
+                f"-d {MODEL_PARAMS[0][0]} {MODEL_PARAMS[0][1]} "
+                f"-d {MODEL_PARAMS[1][0]} {MODEL_PARAMS[1][1]} "
+                f"-d {MODEL_PARAMS[2][0]} {MODEL_PARAMS[2][1]}",
         network_mode="host",
         task_id="docker-airflow-train-data",
         do_xcom_push=False,
@@ -62,7 +53,7 @@ with DAG(
     validation = DockerOperator(
         image="airflow-validation",
         command="--input_dir /data/splitted/raw/val/{{ ds }} "
-                "--model_dir /data/validation_artefacts/{{ ds }}",
+                f"--model_dir {VAL_ARTEFACTS}",
         network_mode="host",
         task_id="docker-airflow-validation",
         do_xcom_push=False,

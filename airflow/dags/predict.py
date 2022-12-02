@@ -1,28 +1,15 @@
-from datetime import timedelta
-from datetime import datetime
 from airflow import DAG
-from airflow.models import Variable
 from airflow.providers.docker.operators.docker import DockerOperator
-from airflow.utils.dates import days_ago
 from docker.types import Mount
 
+from params_and_paths import DATA_PATH, MLFLOW_RUNS_PATH, START_DATE, DEF_ARGS
 
-DATA_PATH = Variable.get("DATA_PATH")
-MLFLOW_RUNS_PATH = Variable.get("MLFLOW_RUNS_PATH")
-
-
-default_args = {
-    "owner": "matthewiskornev",
-    "email": ["matveiiskornev@mail.ru"],
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5),
-}
 
 with DAG(
         "predict",
-        default_args=default_args,
+        default_args=DEF_ARGS,
         schedule_interval="@daily",
-        start_date=datetime(2022, 11, 27),
+        start_date=START_DATE,
 ) as dag:
 
     predict = DockerOperator(

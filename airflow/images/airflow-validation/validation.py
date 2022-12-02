@@ -16,12 +16,12 @@ TRANSFORMER_PATH = 'mlflow_runs/0/'
 
 @click.command("validation")
 @click.option("--input_dir",
-              default='../../data/splitted/raw/val/2022-11-28/',
-              help='Please enter path to input data. Default path - ../../data/splitted/raw/val/2022-11-28/')
+              default='/data/splitted/raw/val/2022-11-28/',
+              help='Please enter path to unprocessed validation data. Default path - /data/splitted/raw/val/2022-11-28/')
 @click.option("--model_dir",
-              default='../../data/validation_artefacts/2022-11-29/',
+              default='/data/validation_artefacts/2022-11-29/',
               help='Please enter path to validation artefacts. Default path - '
-                   '../../data/validation_artefacts/2022-11-29/')
+                   '/data/validation_artefacts/2022-11-29/')
 def validation(input_dir: str, model_dir: str) -> None:
     filenames = next(walk(model_dir), (None, None, []))[2]
     print(filenames)

@@ -3,7 +3,7 @@ version: '3.7'
 x-environment: &airflow_environment
   - AIRFLOW__CORE__EXECUTOR=LocalExecutor
   - AIRFLOW__CORE__LOAD_DEFAULT_CONNECTIONS=False
-  - AIRFLOW__CORE__LOAD_EXAMPLES=True
+  - AIRFLOW__CORE__LOAD_EXAMPLES=False
   - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow
   - AIRFLOW__CORE__STORE_DAG_CODE=True
   - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
@@ -11,6 +11,13 @@ x-environment: &airflow_environment
   - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY}
   - AIRFLOW_VAR_DATA_PATH=${DATA_PATH}
   - AIRFLOW_VAR_MLFLOW_RUNS_PATH=${MLFLOW_RUNS_PATH}
+  - AIRFLOW__SMTP__SMTP_HOST=smtp.gmail.com
+  - AIRFLOW__SMTP__SMTP_STARTTLS=True
+  - AIRFLOW__SMTP__SMTP_SSL=False
+  - AIRFLOW__SMTP__SMTP_USER=dirijablvspovar@gmail.com
+  - AIRFLOW__SMTP__SMTP_PASSWORD=${PASSWORD}
+  - AIRFLOW__SMTP__SMTP_PORT=587
+  - AIRFLOW__SMTP__SMTP_MAIL_FROM=dirijablvspovar@gmail.com
 
 
 x-airflow-image: &airflow_image apache/airflow:2.3.0-python3.8

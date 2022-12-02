@@ -67,11 +67,3 @@ def test_dag_predict_dict(dagbag):
         },
         dag,
     )
-
-# docker exec -it airflow-scheduler-1 bash
-
-# pip3 install pytest
-
-# docker exec -it airflow-scheduler-1 bash -c "pip3 install pytest && python3 -m pytest --disable-warnings tests/"
-
-# python3 -m pytest tests/

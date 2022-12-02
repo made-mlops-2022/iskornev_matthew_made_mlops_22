@@ -13,14 +13,15 @@ NUMERICAL = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
 
 @click.command("preprocess_data")
 @click.option("--input_dir",
-              default='../../data/splitted/raw/train/',
-              help='Please enter path to input data. Default path - ../../data/raw/2022-11-28/')
+              default='/data/splitted/raw/train/',
+              help='Please enter path to input unprocessed data. Default path - /data/raw/2022-11-28/')
 @click.option("--output_dir",
-              default='../../data/splitted/processed/train/',
-              help='Please enter path to output data. Default path - ../../data/processed/')
+              default='/data/splitted/processed/train/',
+              help='Please enter path to output processed data. Default path - /data/processed/')
 @click.option("--val_dir",
-              default='../../data/validation_artefacts/',
-              help='Please enter path to validation artefacts. Default path - ../../data/validation_artefacts/')
+              default='/data/validation_artefacts/',
+              help='Please enter path to validation artefacts (for transformer). Default path - '
+                   '/data/validation_artefacts/')
 def preprocess_data(input_dir: str, output_dir: str, val_dir: str) -> None:
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(val_dir, exist_ok=True)

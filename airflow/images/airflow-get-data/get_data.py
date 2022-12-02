@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import click
 import os
 from pathlib import Path
-from typing import Tuple
 
 
 TARGET = 'condition'
@@ -15,14 +14,13 @@ TARGET = 'condition'
 
 @click.command("download")
 @click.option('--output_dir', '-od',
-              default='../../data/raw/',
-              help='Please enter path to output data. Default path - ../../data/raw/')
+              default='/data/raw/',
+              help='Please enter path to output data. Default path - /data/raw/')
 def get_data(output_dir: str) -> None:
     os.makedirs(output_dir, exist_ok=True)
     synthetic_data, description_file = get_synth_data(output_dir)
     synthetic_df = pd.read_csv(synthetic_data)
     df = pd.read_csv('heart_cleveland_upload.csv')
-    # print(df.head())
     attribute_description = read_json_file(description_file)['attribute_description']
     inspector = ModelInspector(df, synthetic_df, attribute_description)
     inspector.mutual_information_heatmap()

@@ -12,12 +12,12 @@ TRANSFORMER_PATH = 'mlflow_runs/0/'
 
 @click.command("predict")
 @click.option("--input_dir",
-              default='data/raw/2022-11-29/',
-              help='Please enter path to input data. Default path - ../../data/raw/2022-11-29/')
+              default='/data/raw/2022-11-29/',
+              help='Please enter path to input data. Default path - /data/raw/2022-11-29/')
 @click.option("--output_dir",
-              default='data/predictions/',
-              help='Please enter path to output dur. Default path - '
-                   '../../data/predictions/')
+              default='/data/predictions/',
+              help='Please enter path to dir for predictions. Default path - '
+                   '/data/predictions/')
 def predict(input_dir: str, output_dir: str) -> None:
     os.makedirs(output_dir, exist_ok=True)
     data = pd.read_csv(Path(input_dir).joinpath('data.csv'))
@@ -37,9 +37,6 @@ def predict(input_dir: str, output_dir: str) -> None:
     model = mlflow.pyfunc.load_model(
         model_uri=f"models:/model_rfc/{stage}"
     )
-
-    # dict_model_info = client.search_registered_models()
-    # print(dict_model_info)
 
     with open(f"{TRANSFORMER_PATH}/{model_run_id}/artifacts/trans.pkl", 'rb') as f:
         trans = pickle.load(f)
