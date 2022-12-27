@@ -1,0 +1,11 @@
+build
+.pytest_cache
+microservice.egg-info
+
+*/.pytest_cache
+*/*/.pytest_cache
+*/*/.gitkeep
+*/*/*.csv
+
+data/transformer/get_transformer.py
+README.md
